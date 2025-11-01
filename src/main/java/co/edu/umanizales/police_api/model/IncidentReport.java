@@ -1,14 +1,16 @@
 package co.edu.umanizales.police_api.model;
 
-// CSV header: id,caseId,reporterName,details,reportedAt
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
-/**
- * A basic initial report for an incident related to a case.
- */
+ //reporte de incidente relacionado con el caso
+
+@Setter
+@Getter
 public class IncidentReport implements Identifiable {
     private UUID id;
     private UUID caseId;
@@ -19,21 +21,6 @@ public class IncidentReport implements Identifiable {
     public IncidentReport() {
         this.id = UUID.randomUUID();
     }
-
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
-
-    public UUID getCaseId() { return caseId; }
-    public void setCaseId(UUID caseId) { this.caseId = caseId; }
-
-    public String getReporterName() { return reporterName; }
-    public void setReporterName(String reporterName) { this.reporterName = reporterName; }
-
-    public String getDetails() { return details; }
-    public void setDetails(String details) { this.details = details; }
-
-    public LocalDateTime getReportedAt() { return reportedAt; }
-    public void setReportedAt(LocalDateTime reportedAt) { this.reportedAt = reportedAt; }
 
     @Override
     public String toCsv() {

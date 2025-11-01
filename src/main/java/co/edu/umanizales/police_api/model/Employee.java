@@ -1,6 +1,5 @@
 package co.edu.umanizales.police_api.model;
 
-// CSV header: id,firstName,lastName,hiredDate,unitId
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,9 +8,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
-/**
- * Abstract base employee of the police station.
- */
+
+ //empleados de la estacion policial
+
 @Setter
 @Getter
 public abstract class Employee implements Identifiable {
@@ -37,7 +36,8 @@ public abstract class Employee implements Identifiable {
     }
 
     public static Employee fromCsv(String line) {
-        // Al ser abstracta, esta clase no puede instanciarse directamente.
+
+
         throw new UnsupportedOperationException("Use a concrete subclass to create an Employee from CSV.");
     }
 

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
-// Evidence item collected for a case.
+// Evidencia recolectada del caso.
 
 @Setter
 @Getter

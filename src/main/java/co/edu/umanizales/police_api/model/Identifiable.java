@@ -2,7 +2,7 @@ package co.edu.umanizales.police_api.model;
 
 import java.util.UUID;
 
-// Small interface for objects with an identifier and CSV support.
+// interface para objetos con identificador para id
 
 public interface Identifiable {
     UUID getId();

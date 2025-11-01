@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-//A police unit or squad with optional member employees.
+//Registrar Unidad policial
 
 public class PoliceUnit implements Identifiable {
     private UUID id;

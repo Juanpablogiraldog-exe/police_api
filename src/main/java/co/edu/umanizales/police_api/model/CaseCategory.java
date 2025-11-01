@@ -1,5 +1,5 @@
 package co.edu.umanizales.police_api.model;
 
-// name,description
+// nombre y categoria del caso
 
 public record CaseCategory(String name, String description) { }

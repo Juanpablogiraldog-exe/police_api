@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
-//reporte del caso.
+//reporte del caso
 
 @Setter
 @Getter
@@ -20,6 +20,8 @@ public class CaseReport implements Identifiable {
     public CaseReport() {
         this.id = UUID.randomUUID();
     }
+
+    //convertir
 
     @Override
     public String toCsv() {

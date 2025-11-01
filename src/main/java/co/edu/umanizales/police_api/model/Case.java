@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-//reporte policiaco con evidencia.
+//reporte policiaco con evidencia
 
 @Setter
 @Getter
@@ -26,11 +26,8 @@ public class Case implements Identifiable {
         this.evidenceIds = new ArrayList<>();
     }
 
+    //Convertir a csv
 
-    // Returns a string representation of the case in CSV format.
-    //The format is as follows: id,title,description,crimeType,assignedUnitId,reportIds,evidenceIds
-    //@return a string representation of the case in CSV format
-//
     @Override
     public String toCsv() {
         String t = title == null ? "" : title.replace(",", "");

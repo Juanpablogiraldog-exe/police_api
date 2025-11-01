@@ -1,12 +1,15 @@
 package co.edu.umanizales.police_api.model;
 
-// CSV header: id,plateNumber,model,assignedUnitId
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.UUID;
 
-/**
- * A simple police vehicle assigned to a unit.
- */
+
+ // vehículo que se asigna a una unidad
+
+@Setter
+@Getter
 public class PoliceVehicle implements Identifiable {
     private UUID id;
     private String plateNumber;
@@ -16,18 +19,6 @@ public class PoliceVehicle implements Identifiable {
     public PoliceVehicle() {
         this.id = UUID.randomUUID();
     }
-
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
-
-    public String getPlateNumber() { return plateNumber; }
-    public void setPlateNumber(String plateNumber) { this.plateNumber = plateNumber; }
-
-    public String getModel() { return model; }
-    public void setModel(String model) { this.model = model; }
-
-    public UUID getAssignedUnitId() { return assignedUnitId; }
-    public void setAssignedUnitId(UUID assignedUnitId) { this.assignedUnitId = assignedUnitId; }
 
     @Override
     public String toCsv() {

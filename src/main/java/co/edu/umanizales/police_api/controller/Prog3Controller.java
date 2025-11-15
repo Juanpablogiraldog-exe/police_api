@@ -12,6 +12,6 @@ public class Prog3Controller {
     @GetMapping
     public String gethello()
     {
-       return "Hola campeones y campeonas";
+       return "Funcionando Correctamente";
     }
 }

@@ -1,0 +1,230 @@
+{
+  "info": {
+    "name": "Police API Cohesión",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "unitId", "value": "" },
+    { "key": "caseId", "value": "" },
+    { "key": "incidentReportId", "value": "" },
+    { "key": "evidenceId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET /Prog3",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Accept", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/Prog3", "host": [ "{{baseUrl}}" ], "path": [ "Prog3" ] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "type": "text/javascript", "exec": [
+                "pm.test('200 OK', () => pm.response.to.have.status(200));"
+              ]}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PoliceUnits",
+      "item": [
+        {
+          "name": "GET /policeunits",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Accept", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/policeunits", "host": ["{{baseUrl}}"], "path": ["policeunits"] }
+          },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('200 OK', () => pm.response.to.have.status(200));"
+          ] } } ]
+        },
+        {
+          "name": "POST /policeunits",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Unidad Alfa\",\n  \"memberEmployeeIds\": [],\n  \"active\": true\n}" },
+            "url": { "raw": "{{baseUrl}}/policeunits", "host": ["{{baseUrl}}"], "path": ["policeunits"] }
+          },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('200 OK', () => pm.response.to.have.status(200));",
+            "const b = pm.response.json();",
+            "pm.environment.set('unitId', b.id);"
+          ] } } ]
+        },
+        {
+          "name": "GET /policeunits/{id}",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Accept", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/policeunits/{{unitId}}", "host": ["{{baseUrl}}"], "path": ["policeunits", "{{unitId}}"] }
+          },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('200 OK', () => pm.response.to.have.status(200));"
+          ] } } ]
+        },
+        {
+          "name": "PUT /policeunits/{id}",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Unidad Beta\",\n  \"memberEmployeeIds\": [],\n  \"active\": false\n}" },
+            "url": { "raw": "{{baseUrl}}/policeunits/{{unitId}}", "host": ["{{baseUrl}}"], "path": ["policeunits", "{{unitId}}"] }
+          },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('200 OK', () => pm.response.to.have.status(200));"
+          ] } } ]
+        },
+        {
+          "name": "DELETE /policeunits/{id}",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "Accept", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/policeunits/{{unitId}}", "host": ["{{baseUrl}}"], "path": ["policeunits", "{{unitId}}"] }
+          },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('204 No Content', () => pm.response.to.have.status(204));"
+          ] } } ]
+        }
+      ]
+    },
+    {
+      "name": "Cases",
+      "item": [
+        {
+          "name": "GET /cases",
+          "request": { "method": "GET", "header": [ { "key": "Accept", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/cases", "host": ["{{baseUrl}}"], "path": ["cases"] } },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('200 OK', () => pm.response.to.have.status(200));" ] } } ]
+        },
+        {
+          "name": "POST /cases",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Robo en supermercado\",\n  \"description\": \"Hurto en caja principal\",\n  \"crimeType\": \"THEFT\",\n  \"assignedUnitId\": \"{{unitId}}\"\n}" },
+            "url": { "raw": "{{baseUrl}}/cases", "host": ["{{baseUrl}}"], "path": ["cases"] }
+          },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('200 OK', () => pm.response.to.have.status(200));",
+            "const b = pm.response.json();",
+            "pm.environment.set('caseId', b.id);"
+          ] } } ]
+        },
+        {
+          "name": "GET /cases/{id}",
+          "request": { "method": "GET", "header": [ { "key": "Accept", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/cases/{{caseId}}", "host": ["{{baseUrl}}"], "path": ["cases", "{{caseId}}"] } },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('200 OK', () => pm.response.to.have.status(200));" ] } } ]
+        },
+        {
+          "name": "PUT /cases/{id}",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Robo actualizado\",\n  \"description\": \"Descripción actualizada\",\n  \"crimeType\": \"THEFT\",\n  \"assignedUnitId\": \"{{unitId}}\",\n  \"reportIds\": [],\n  \"evidenceIds\": []\n}" },
+            "url": { "raw": "{{baseUrl}}/cases/{{caseId}}", "host": ["{{baseUrl}}"], "path": ["cases", "{{caseId}}"] }
+          },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('200 OK', () => pm.response.to.have.status(200));" ] } } ]
+        },
+        {
+          "name": "DELETE /cases/{id}",
+          "request": { "method": "DELETE", "header": [ { "key": "Accept", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/cases/{{caseId}}", "host": ["{{baseUrl}}"], "path": ["cases", "{{caseId}}"] } },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('204 No Content', () => pm.response.to.have.status(204));" ] } } ]
+        }
+      ]
+    },
+    {
+      "name": "IncidentReports",
+      "item": [
+        {
+          "name": "GET /incidentreports",
+          "request": { "method": "GET", "header": [ { "key": "Accept", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/incidentreports", "host": ["{{baseUrl}}"], "path": ["incidentreports"] } },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('200 OK', () => pm.response.to.have.status(200));" ] } } ]
+        },
+        {
+          "name": "POST /incidentreports",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"caseId\": \"{{caseId}}\",\n  \"reporterName\": \"Juan Pérez\",\n  \"details\": \"Hurto reportado\",\n  \"reportedAt\": \"2025-11-15T14:30:00\"\n}" },
+            "url": { "raw": "{{baseUrl}}/incidentreports", "host": ["{{baseUrl}}"], "path": ["incidentreports"] }
+          },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('200 OK', () => pm.response.to.have.status(200));",
+            "pm.environment.set('incidentReportId', pm.response.json().id);"
+          ] } } ]
+        },
+        {
+          "name": "GET /incidentreports/{id}",
+          "request": { "method": "GET", "header": [ { "key": "Accept", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/incidentreports/{{incidentReportId}}", "host": ["{{baseUrl}}"], "path": ["incidentreports", "{{incidentReportId}}"] } },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('200 OK', () => pm.response.to.have.status(200));" ] } } ]
+        },
+        {
+          "name": "PUT /incidentreports/{id}",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"caseId\": \"{{caseId}}\",\n  \"reporterName\": \"Ana Gómez\",\n  \"details\": \"Detalles actualizados\",\n  \"reportedAt\": \"2025-11-15T16:00:00\"\n}" },
+            "url": { "raw": "{{baseUrl}}/incidentreports/{{incidentReportId}}", "host": ["{{baseUrl}}"], "path": ["incidentreports", "{{incidentReportId}}"] }
+          },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('200 OK', () => pm.response.to.have.status(200));" ] } } ]
+        },
+        {
+          "name": "DELETE /incidentreports/{id}",
+          "request": { "method": "DELETE", "header": [ { "key": "Accept", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/incidentreports/{{incidentReportId}}", "host": ["{{baseUrl}}"], "path": ["incidentreports", "{{incidentReportId}}"] } },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('204 No Content', () => pm.response.to.have.status(204));" ] } } ]
+        }
+      ]
+    },
+    {
+      "name": "Evidences",
+      "item": [
+        {
+          "name": "GET /evidences",
+          "request": { "method": "GET", "header": [ { "key": "Accept", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/evidences", "host": ["{{baseUrl}}"], "path": ["evidences"] } },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('200 OK', () => pm.response.to.have.status(200));" ] } } ]
+        },
+        {
+          "name": "POST /evidences",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"caseId\": \"{{caseId}}\",\n  \"type\": \"Video\",\n  \"description\": \"Video de cámara de seguridad\",\n  \"collectedAt\": \"2025-11-15T15:00:00\"\n}" },
+            "url": { "raw": "{{baseUrl}}/evidences", "host": ["{{baseUrl}}"], "path": ["evidences"] }
+          },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('200 OK', () => pm.response.to.have.status(200));",
+            "pm.environment.set('evidenceId', pm.response.json().id);"
+          ] } } ]
+        },
+        {
+          "name": "GET /evidences/{id}",
+          "request": { "method": "GET", "header": [ { "key": "Accept", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/evidences/{{evidenceId}}", "host": ["{{baseUrl}}"], "path": ["evidences", "{{evidenceId}}"] } },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('200 OK', () => pm.response.to.have.status(200));" ] } } ]
+        },
+        {
+          "name": "PUT /evidences/{id}",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"caseId\": \"{{caseId}}\",\n  \"type\": \"Foto\",\n  \"description\": \"Foto de alta resolución\",\n  \"collectedAt\": \"2025-11-15T16:30:00\"\n}" },
+            "url": { "raw": "{{baseUrl}}/evidences/{{evidenceId}}", "host": ["{{baseUrl}}"], "path": ["evidences", "{{evidenceId}}"] }
+          },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('200 OK', () => pm.response.to.have.status(200));" ] } } ]
+        },
+        {
+          "name": "DELETE /evidences/{id}",
+          "request": { "method": "DELETE", "header": [ { "key": "Accept", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/evidences/{{evidenceId}}", "host": ["{{baseUrl}}"], "path": ["evidences", "{{evidenceId}}"] } },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('204 No Content', () => pm.response.to.have.status(204));" ] } } ]
+        }
+      ]
+    }
+  ]
+}

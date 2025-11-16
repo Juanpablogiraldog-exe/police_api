@@ -1,6 +1,7 @@
 package co.edu.umanizales.police_api.model;
 
-
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,12 +14,17 @@ import java.util.UUID;
 
 @Setter
 @Getter
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = Officer.class, name = "Officer"),
+    @JsonSubTypes.Type(value = Detective.class, name = "Detective")
+})
 public abstract class Employee implements Identifiable {
     private UUID id;
     private String firstName;
     private String lastName;
     private LocalDate hiredDate;
-    private UUID unitId; // Relación por UUID para mantener la simplicidad.
+    private PoliceUnit unit; // Relación directa con unidad
 
 
     public Employee() {
@@ -31,7 +37,7 @@ public abstract class Employee implements Identifiable {
         String hd = hiredDate != null ? hiredDate.format(df) : "";
         String fn = firstName == null ? "" : firstName.replace(",", "");
         String ln = lastName == null ? "" : lastName.replace(",", "");
-        String uid = unitId != null ? unitId.toString() : "";
+        String uid = unit != null ? unit.getId().toString() : "";
         return (id != null ? id.toString() : "") + "," + fn + "," + ln + "," + hd + "," + uid;
     }
 

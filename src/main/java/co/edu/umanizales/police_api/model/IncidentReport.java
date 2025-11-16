@@ -13,7 +13,7 @@ import java.util.UUID;
 @Getter
 public class IncidentReport implements Identifiable {
     private UUID id;
-    private UUID caseId;
+    private Case case_;
     private String reporterName;
     private String details;
     private LocalDateTime reportedAt;
@@ -27,7 +27,7 @@ public class IncidentReport implements Identifiable {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         String rn = reporterName == null ? "" : reporterName.replace(",", "");
         String de = details == null ? "" : details.replace(",", "");
-        String cd = caseId != null ? caseId.toString() : "";
+        String cd = case_ != null ? case_.getId().toString() : "";
         String ra = reportedAt != null ? reportedAt.format(dtf) : "";
         return (id != null ? id.toString() : "") + "," + cd + "," + rn + "," + de + "," + ra;
     }
@@ -36,7 +36,7 @@ public class IncidentReport implements Identifiable {
         String[] p = line.split(",", -1);
         IncidentReport r = new IncidentReport();
         if (!p[0].isEmpty()) r.setId(UUID.fromString(p[0]));
-        r.setCaseId(p[1].isEmpty() ? null : UUID.fromString(p[1]));
+        // Note: case_ will be set by service after loading
         r.setReporterName(p[2]);
         r.setDetails(p[3]);
         r.setReportedAt(p[4].isEmpty() ? null : LocalDateTime.parse(p[4]));

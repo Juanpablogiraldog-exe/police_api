@@ -1,6 +1,9 @@
 package co.edu.umanizales.police_api.service;
 
 import co.edu.umanizales.police_api.model.Case;
+import co.edu.umanizales.police_api.model.IncidentReport;
+import co.edu.umanizales.police_api.model.Evidence;
+import co.edu.umanizales.police_api.model.PoliceUnit;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -51,50 +54,37 @@ public class CaseService {
                 current.setTitle(c.getTitle());
                 current.setDescription(c.getDescription());
                 current.setCrimeType(c.getCrimeType());
-                current.setAssignedUnitId(c.getAssignedUnitId());
+                current.setAssignedUnit(c.getAssignedUnit());
 
                 // Reemplaza la lista de reportes manteniendo la instancia.
-                List<UUID> targetReports = current.getReportIds();
+                List<IncidentReport> targetReports = current.getReports();
                 if (targetReports != null) {
                     targetReports.clear();
                 }
-                if (c.getReportIds() != null) {
+                if (c.getReports() != null) {
                     if (targetReports == null) {
-                        // Si era null por alguna razón, crea la lista y agrega.
-                        List<UUID> newList = new ArrayList<>();
-                        for (UUID u : c.getReportIds()) {
-                            newList.add(u);
-                        }
-                        // No hay setter público para reportIds, por eso se evita asignar directamente.
-                        // Se asume que targetReports no es null por constructor, pero se maneja por seguridad.
-                        if (current.getReportIds() != null) {
-                            current.getReportIds().addAll(newList);
+                        List<IncidentReport> newList = new ArrayList<>(c.getReports());
+                        if (current.getReports() != null) {
+                            current.getReports().addAll(newList);
                         }
                     } else {
-                        for (UUID u : c.getReportIds()) {
-                            targetReports.add(u);
-                        }
+                        targetReports.addAll(c.getReports());
                     }
                 }
 
                 // Reemplaza la lista de evidencias manteniendo la instancia.
-                List<UUID> targetEvidence = current.getEvidenceIds();
+                List<Evidence> targetEvidence = current.getEvidences();
                 if (targetEvidence != null) {
                     targetEvidence.clear();
                 }
-                if (c.getEvidenceIds() != null) {
+                if (c.getEvidences() != null) {
                     if (targetEvidence == null) {
-                        List<UUID> newList = new ArrayList<>();
-                        for (UUID u : c.getEvidenceIds()) {
-                            newList.add(u);
-                        }
-                        if (current.getEvidenceIds() != null) {
-                            current.getEvidenceIds().addAll(newList);
+                        List<Evidence> newList = new ArrayList<>(c.getEvidences());
+                        if (current.getEvidences() != null) {
+                            current.getEvidences().addAll(newList);
                         }
                     } else {
-                        for (UUID u : c.getEvidenceIds()) {
-                            targetEvidence.add(u);
-                        }
+                        targetEvidence.addAll(c.getEvidences());
                     }
                 }
                 return current;

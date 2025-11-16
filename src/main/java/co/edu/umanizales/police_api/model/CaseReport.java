@@ -13,7 +13,7 @@ import java.util.UUID;
 @Getter
 public class CaseReport implements Identifiable {
     private UUID id;
-    private UUID caseId;
+    private Case case_;
     private String summary;
     private LocalDate createdAt;
 
@@ -27,7 +27,7 @@ public class CaseReport implements Identifiable {
     public String toCsv() {
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String s = summary == null ? "" : summary.replace(",", "");
-        String c = caseId != null ? caseId.toString() : "";
+        String c = case_ != null ? case_.getId().toString() : "";
         String ca = createdAt != null ? createdAt.format(df) : "";
         return (id != null ? id.toString() : "") + "," + c + "," + s + "," + ca;
     }
@@ -36,7 +36,7 @@ public class CaseReport implements Identifiable {
         String[] p = line.split(",", -1);
         CaseReport r = new CaseReport();
         if (!p[0].isEmpty()) r.setId(UUID.fromString(p[0]));
-        r.setCaseId(p[1].isEmpty() ? null : UUID.fromString(p[1]));
+        // Note: case_ will be set by service after loading
         r.setSummary(p[2]);
         r.setCreatedAt(p[3].isEmpty() ? null : LocalDate.parse(p[3]));
         return r;

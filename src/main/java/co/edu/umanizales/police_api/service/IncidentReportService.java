@@ -48,7 +48,7 @@ public class IncidentReportService {
         }
         for (IncidentReport current : reports) {
             if (current.getId() != null && current.getId().equals(id)) {
-                current.setCaseId(r.getCaseId());
+                current.setCase_(r.getCase_());
                 current.setReporterName(r.getReporterName());
                 current.setDetails(r.getDetails());
                 current.setReportedAt(r.getReportedAt());

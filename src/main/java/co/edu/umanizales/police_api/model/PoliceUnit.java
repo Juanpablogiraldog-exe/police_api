@@ -10,12 +10,12 @@ import java.util.UUID;
 public class PoliceUnit implements Identifiable {
     private UUID id;
     private String name;
-    private List<UUID> memberEmployeeIds;
+    private List<Employee> members;
     private boolean active;
 
     public PoliceUnit() {
         this.id = UUID.randomUUID();
-        this.memberEmployeeIds = new ArrayList<>();
+        this.members = new ArrayList<>();
     }
 
     public UUID getId() { return id; }
@@ -24,8 +24,8 @@ public class PoliceUnit implements Identifiable {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public List<UUID> getMemberEmployeeIds() { return memberEmployeeIds; }
-    public void setMemberEmployeeIds(List<UUID> memberEmployeeIds) { this.memberEmployeeIds = memberEmployeeIds; }
+    public List<Employee> getMembers() { return members; }
+    public void setMembers(List<Employee> members) { this.members = members; }
 
     public boolean isActive() { return active; }
     public void setActive(boolean active) { this.active = active; }
@@ -33,8 +33,8 @@ public class PoliceUnit implements Identifiable {
     @Override
     public String toCsv() {
         String n = name == null ? "" : name.replace(",", "");
-        String members = joinUuidList(memberEmployeeIds);
-        return (id != null ? id.toString() : "") + "," + n + "," + members + "," + active;
+        String memberIds = joinUuidList(members);
+        return (id != null ? id.toString() : "") + "," + n + "," + memberIds + "," + active;
     }
 
     public static PoliceUnit fromCsv(String line) {
@@ -42,7 +42,7 @@ public class PoliceUnit implements Identifiable {
         PoliceUnit u = new PoliceUnit();
         if (!p[0].isEmpty()) u.setId(UUID.fromString(p[0]));
         u.setName(p[1]);
-        u.setMemberEmployeeIds(parseUuidList(p.length > 2 ? p[2] : ""));
+        // Note: members will be set by service after loading
         u.setActive(p.length > 3 && Boolean.parseBoolean(p[3]));
         return u;
     }
@@ -57,12 +57,17 @@ public class PoliceUnit implements Identifiable {
         return list;
     }
 
-    private static String joinUuidList(List<UUID> list) {
+    private static String joinUuidList(List<?> list) {
         if (list == null || list.isEmpty()) return "";
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             if (i > 0) sb.append(';');
-            sb.append(list.get(i).toString());
+            Object item = list.get(i);
+            if (item instanceof Identifiable) {
+                sb.append(((Identifiable) item).getId().toString());
+            } else if (item instanceof UUID) {
+                sb.append(item.toString());
+            }
         }
         return sb.toString();
     }

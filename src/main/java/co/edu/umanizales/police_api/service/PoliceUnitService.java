@@ -1,6 +1,7 @@
 package co.edu.umanizales.police_api.service;
 
 import co.edu.umanizales.police_api.model.PoliceUnit;
+import co.edu.umanizales.police_api.model.Employee;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -52,23 +53,18 @@ public class PoliceUnitService {
                 current.setActive(u.isActive());
 
                 // Reemplaza la lista de miembros manteniendo la instancia.
-                List<UUID> targetMembers = current.getMemberEmployeeIds();
+                List<Employee> targetMembers = current.getMembers();
                 if (targetMembers != null) {
                     targetMembers.clear();
                 }
-                if (u.getMemberEmployeeIds() != null) {
+                if (u.getMembers() != null) {
                     if (targetMembers == null) {
-                        List<UUID> newList = new ArrayList<>();
-                        for (UUID m : u.getMemberEmployeeIds()) {
-                            newList.add(m);
-                        }
-                        if (current.getMemberEmployeeIds() != null) {
-                            current.getMemberEmployeeIds().addAll(newList);
+                        List<Employee> newList = new ArrayList<>(u.getMembers());
+                        if (current.getMembers() != null) {
+                            current.getMembers().addAll(newList);
                         }
                     } else {
-                        for (UUID m : u.getMemberEmployeeIds()) {
-                            targetMembers.add(m);
-                        }
+                        targetMembers.addAll(u.getMembers());
                     }
                 }
                 return current;

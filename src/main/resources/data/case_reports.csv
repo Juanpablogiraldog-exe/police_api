@@ -1,1 +1,4 @@
-id,caseId,summary,createdAt
+id,case_,summary,createdAt
+550e8400-e29b-41d4-a716-446655440501,550e8400-e29b-41d4-a716-446655440201,Resumen del caso de robo en tienda,2025-11-15
+550e8400-e29b-41d4-a716-446655440502,550e8400-e29b-41d4-a716-446655440202,Resumen del caso de asalto a mano armada,2025-11-15
+550e8400-e29b-41d4-a716-446655440503,550e8400-e29b-41d4-a716-446655440203,Resumen del caso de fraude electrónico,2025-11-15

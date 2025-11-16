@@ -41,6 +41,10 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -71,6 +75,33 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.davidmoten</groupId>
+                <artifactId>plantuml-maven-plugin</artifactId>
+                <version>0.2.13</version>
+                <executions>
+                    <execution>
+                        <id>generate-diagrams</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sources>
+                        <directory>${project.basedir}/src/main/resources</directory>
+                        <includes>
+                            <include>**/*.puml</include>
+                        </includes>
+                    </sources>
+                    <outputDirectory>${project.basedir}/src/main/resources</outputDirectory>
+                    <formats>
+                        <format>png</format>
+                    </formats>
+                    <preserveDirectoryStructure>false</preserveDirectoryStructure>
                 </configuration>
             </plugin>
         </plugins>

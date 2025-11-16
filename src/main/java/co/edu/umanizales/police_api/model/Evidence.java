@@ -13,7 +13,7 @@ import java.util.UUID;
 @Getter
 public class Evidence implements Identifiable {
     private UUID id;
-    private UUID caseId;
+    private Case case_;
     private String type;
     private String description;
     private LocalDateTime collectedAt;
@@ -27,7 +27,7 @@ public class Evidence implements Identifiable {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         String t = type == null ? "" : type.replace(",", "");
         String d = description == null ? "" : description.replace(",", "");
-        String c = caseId != null ? caseId.toString() : "";
+        String c = case_ != null ? case_.getId().toString() : "";
         String ca = collectedAt != null ? collectedAt.format(dtf) : "";
         return (id != null ? id.toString() : "") + "," + c + "," + t + "," + d + "," + ca;
     }
@@ -36,7 +36,7 @@ public class Evidence implements Identifiable {
         String[] p = line.split(",", -1);
         Evidence e = new Evidence();
         if (!p[0].isEmpty()) e.setId(UUID.fromString(p[0]));
-        e.setCaseId(p[1].isEmpty() ? null : UUID.fromString(p[1]));
+        // Note: case_ will be set by service after loading
         e.setType(p[2]);
         e.setDescription(p[3]);
         e.setCollectedAt(p[4].isEmpty() ? null : LocalDateTime.parse(p[4]));

@@ -48,7 +48,7 @@ public class EvidenceService {
         }
         for (Evidence current : evidences) {
             if (current.getId() != null && current.getId().equals(id)) {
-                current.setCaseId(e.getCaseId());
+                current.setCase_(e.getCase_());
                 current.setType(e.getType());
                 current.setDescription(e.getDescription());
                 current.setCollectedAt(e.getCollectedAt());

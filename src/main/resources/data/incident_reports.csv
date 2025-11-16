@@ -1,1 +1,4 @@
-id,caseId,reporterName,details,reportedAt
+id,case_,reporterName,details,reportedAt
+550e8400-e29b-41d4-a716-446655440301,550e8400-e29b-41d4-a716-446655440201,Juan Pérez,Se reporta robo de mercancía en tienda del centro,2025-11-15T09:00:00
+550e8400-e29b-41d4-a716-446655440302,550e8400-e29b-41d4-a716-446655440202,María García,Se reporta asalto a mano armada en avenida principal,2025-11-15T10:00:00
+550e8400-e29b-41d4-a716-446655440303,550e8400-e29b-41d4-a716-446655440203,Carlos López,Se reporta fraude en transacciones bancarias,2025-11-15T13:00:00

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -233,6 +234,35 @@ public class CaseService {
             return CrimeType.valueOf(v);
         } catch (IllegalArgumentException ex) {
             return CrimeType.OTHER;
+        }
+    }
+
+    public JsonNode getDatasetRows() {
+        try {
+            ClassPathResource resource = new ClassPathResource("cases_dataset.json");
+            ObjectMapper mapper = new ObjectMapper();
+            if (!resource.exists()) {
+                ObjectNode empty = mapper.createObjectNode();
+                empty.putArray("rows");
+                return empty;
+            }
+            try (InputStream is = resource.getInputStream()) {
+                JsonNode root = mapper.readTree(is);
+                JsonNode rows = root.path("rows");
+                ObjectNode out = mapper.createObjectNode();
+                if (rows != null && rows.isArray()) {
+                    out.set("rows", rows);
+                } else {
+                    out.putArray("rows");
+                }
+                return out;
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer dataset de casos: " + e.getMessage());
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode empty = mapper.createObjectNode();
+            empty.putArray("rows");
+            return empty;
         }
     }
 }

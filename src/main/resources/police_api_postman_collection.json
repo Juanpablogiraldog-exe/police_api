@@ -130,6 +130,51 @@
           }
         },
         {
+          "name": "Get Cases Dataset (rows)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json();",
+                  "const rows = Array.isArray(data.rows) ? data.rows : [];",
+                  "const template = [",
+                  "  '<style>table{border-collapse:collapse}th,td{border:1px solid #ccc;padding:4px 8px;text-align:left}thead{background:#f7f7f7}</style>',",
+                  "  '<table>',",
+                  "  '<thead><tr><th>case_id</th><th>date</th><th>category</th><th>status</th><th>location</th><th>assigned_officer</th><th>priority</th><th>notes</th></tr></thead>',",
+                  "  '<tbody>',",
+                  "  '{{#each rows}}',",
+                  "  '<tr>',",
+                  "  '<td>{{case_id}}</td><td>{{date}}</td><td>{{category}}</td><td>{{status}}</td><td>{{location}}</td><td>{{assigned_officer}}</td><td>{{priority}}</td><td>{{notes}}</td>',",
+                  "  '</tr>',",
+                  "  '{{/each}}',",
+                  "  '</tbody>',",
+                  "  '</table>'",
+                  "].join('');",
+                  "pm.visualizer.set(template, { rows });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/cases/dataset",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["cases", "dataset"]
+            }
+          }
+        },
+        {
           "name": "Update Case",
           "request": {
             "method": "PUT",

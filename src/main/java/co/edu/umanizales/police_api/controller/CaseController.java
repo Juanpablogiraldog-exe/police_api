@@ -2,6 +2,7 @@ package co.edu.umanizales.police_api.controller;
 
 import co.edu.umanizales.police_api.model.Case;
 import co.edu.umanizales.police_api.service.CaseService;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,11 @@ public class CaseController {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(created);
+    }
+    
+    @GetMapping("/dataset")
+    public ResponseEntity<JsonNode> getDatasetRows() {
+        return ResponseEntity.ok(caseService.getDatasetRows());
     }
 
     // Actualiza un caso existente.

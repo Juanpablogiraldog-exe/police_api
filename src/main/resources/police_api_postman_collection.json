@@ -1,0 +1,907 @@
+{
+  "info": {
+    "name": "Police API",
+    "description": "Colección de endpoints para la API de Gestión Policial",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Cases",
+      "item": [
+        {
+          "name": "Get All Cases",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/cases",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["cases"]
+            }
+          }
+        },
+        {
+          "name": "Get Case by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/cases/{{caseId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["cases", "{{caseId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Case",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Robo en tienda\",\n  \"description\": \"Robo de mercancía en tienda del centro\",\n  \"crimeType\": \"THEFT\",\n  \"assignedUnit\": null,\n  \"reports\": [],\n  \"evidences\": []\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/cases",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["cases"]
+            }
+          }
+        },
+        {
+          "name": "Update Case",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Robo en tienda - Actualizado\",\n  \"description\": \"Robo de mercancía en tienda del centro - Caso resuelto\",\n  \"crimeType\": \"THEFT\",\n  \"assignedUnit\": null,\n  \"reports\": [],\n  \"evidences\": []\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/cases/{{caseId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["cases", "{{caseId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Case",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/cases/{{caseId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["cases", "{{caseId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Evidence",
+      "item": [
+        {
+          "name": "Get All Evidence",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/evidences",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["evidences"]
+            }
+          }
+        },
+        {
+          "name": "Get Evidence by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/evidences/{{evidenceId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["evidences", "{{evidenceId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Evidence",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"case_\": null,\n  \"type\": \"Fotografía\",\n  \"description\": \"Foto de la escena del crimen\",\n  \"collectedAt\": \"2025-11-15T10:30:00\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/evidences",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["evidences"]
+            }
+          }
+        },
+        {
+          "name": "Update Evidence",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"case_\": null,\n  \"type\": \"Fotografía\",\n  \"description\": \"Foto de la escena del crimen - Actualizada\",\n  \"collectedAt\": \"2025-11-15T10:30:00\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/evidences/{{evidenceId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["evidences", "{{evidenceId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Evidence",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/evidences/{{evidenceId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["evidences", "{{evidenceId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Incident Reports",
+      "item": [
+        {
+          "name": "Get All Incident Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/incidentreports",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["incidentreports"]
+            }
+          }
+        },
+        {
+          "name": "Get Incident Report by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/incidentreports/{{incidentReportId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["incidentreports", "{{incidentReportId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Incident Report",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"case_\": null,\n  \"reporterName\": \"Juan Pérez\",\n  \"details\": \"Se reporta un incidente en la tienda del centro\",\n  \"reportedAt\": \"2025-11-15T09:00:00\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/incidentreports",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["incidentreports"]
+            }
+          }
+        },
+        {
+          "name": "Update Incident Report",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"case_\": null,\n  \"reporterName\": \"Juan Pérez\",\n  \"details\": \"Se reporta un incidente en la tienda del centro - Actualizado\",\n  \"reportedAt\": \"2025-11-15T09:00:00\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/incidentreports/{{incidentReportId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["incidentreports", "{{incidentReportId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Incident Report",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/incidentreports/{{incidentReportId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["incidentreports", "{{incidentReportId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Case Reports",
+      "item": [
+        {
+          "name": "Get All Case Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/casereports",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["casereports"]
+            }
+          }
+        },
+        {
+          "name": "Get Case Report by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/casereports/{{caseReportId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["casereports", "{{caseReportId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Case Report",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"case_\": null,\n  \"summary\": \"Resumen del caso de robo\",\n  \"createdAt\": \"2025-11-15\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/casereports",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["casereports"]
+            }
+          }
+        },
+        {
+          "name": "Update Case Report",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"case_\": null,\n  \"summary\": \"Resumen del caso de robo - Actualizado\",\n  \"createdAt\": \"2025-11-15\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/casereports/{{caseReportId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["casereports", "{{caseReportId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Case Report",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/casereports/{{caseReportId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["casereports", "{{caseReportId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Police Units",
+      "item": [
+        {
+          "name": "Get All Police Units",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/policeunits",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["policeunits"]
+            }
+          }
+        },
+        {
+          "name": "Get Police Unit by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/policeunits/{{policeUnitId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["policeunits", "{{policeUnitId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Police Unit with Members",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Unidad de Patrullaje Norte\",\n  \"active\": true,\n  \"members\": [\n    {\n      \"type\": \"Officer\",\n      \"firstName\": \"Juan\",\n      \"lastName\": \"García\",\n      \"hiredDate\": \"2020-05-15\",\n      \"badge\": \"OP-001\",\n      \"rank\": \"Sargento\",\n      \"unit\": null\n    },\n    {\n      \"type\": \"Detective\",\n      \"firstName\": \"María\",\n      \"lastName\": \"López\",\n      \"hiredDate\": \"2021-03-20\",\n      \"specialization\": \"Homicidios\",\n      \"casesResolved\": 15,\n      \"unit\": null\n    },\n    {\n      \"type\": \"Officer\",\n      \"firstName\": \"Carlos\",\n      \"lastName\": \"Rodríguez\",\n      \"hiredDate\": \"2019-11-10\",\n      \"badge\": \"OP-002\",\n      \"rank\": \"Oficial\",\n      \"unit\": null\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/policeunits",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["policeunits"]
+            }
+          }
+        },
+        {
+          "name": "Update Police Unit",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Unidad de Patrullaje Norte - Actualizada\",\n  \"active\": true,\n  \"members\": []\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/policeunits/{{policeUnitId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["policeunits", "{{policeUnitId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Police Unit",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/policeunits/{{policeUnitId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["policeunits", "{{policeUnitId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Police Vehicles",
+      "item": [
+        {
+          "name": "Get All Police Vehicles",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/policevehicles",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["policevehicles"]
+            }
+          }
+        },
+        {
+          "name": "Get Police Vehicle by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/policevehicles/{{vehicleId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["policevehicles", "{{vehicleId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Police Vehicle",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plateNumber\": \"POL-001\",\n  \"model\": \"Ford Police Interceptor\",\n  \"assignedUnit\": null\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/policevehicles",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["policevehicles"]
+            }
+          }
+        },
+        {
+          "name": "Update Police Vehicle",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plateNumber\": \"POL-001\",\n  \"model\": \"Ford Police Interceptor - Actualizado\",\n  \"assignedUnit\": null\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/policevehicles/{{vehicleId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["policevehicles", "{{vehicleId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Police Vehicle",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/policevehicles/{{vehicleId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["policevehicles", "{{vehicleId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Employees",
+      "item": [
+        {
+          "name": "Get All Employees",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/employees",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["employees"]
+            }
+          }
+        },
+        {
+          "name": "Get Employee by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/employees/{{employeeId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["employees", "{{employeeId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Employee",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"Officer\",\n  \"firstName\": \"Laura\",\n  \"lastName\": \"Mejía\",\n  \"hiredDate\": \"2023-10-01\",\n  \"unit\": null\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/employees",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["employees"]
+            }
+          }
+        },
+        {
+          "name": "Update Employee",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"Officer\",\n  \"firstName\": \"Laura\",\n  \"lastName\": \"Mejía - Actualizado\",\n  \"hiredDate\": \"2023-10-01\",\n  \"unit\": null\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/employees/{{employeeId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["employees", "{{employeeId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Employee",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/employees/{{employeeId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["employees", "{{employeeId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Case Categories",
+      "item": [
+        {
+          "name": "Get All Case Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/casecategories",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["casecategories"]
+            }
+          }
+        },
+        {
+          "name": "Get Case Category by Name",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/casecategories/{{categoryName}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["casecategories", "{{categoryName}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Case Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cibercrimen\",\n  \"description\": \"Delitos informáticos\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/casecategories",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["casecategories"]
+            }
+          }
+        },
+        {
+          "name": "Update Case Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cibercrimen\",\n  \"description\": \"Delitos informáticos - Actualizado\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/casecategories/{{categoryName}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["casecategories", "{{categoryName}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Case Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/casecategories/{{categoryName}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["casecategories", "{{categoryName}}"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "caseId",
+      "value": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    {
+      "key": "evidenceId",
+      "value": "550e8400-e29b-41d4-a716-446655440001"
+    },
+    {
+      "key": "incidentReportId",
+      "value": "550e8400-e29b-41d4-a716-446655440002"
+    },
+    {
+      "key": "caseReportId",
+      "value": "550e8400-e29b-41d4-a716-446655440003"
+    },
+    {
+      "key": "policeUnitId",
+      "value": "550e8400-e29b-41d4-a716-446655440004"
+    },
+    {
+      "key": "vehicleId",
+      "value": "550e8400-e29b-41d4-a716-446655440005"
+    },
+    {
+      "key": "employeeId",
+      "value": "550e8400-e29b-41d4-a716-446655440006"
+    },
+    {
+      "key": "categoryName",
+      "value": "Robo"
+    }
+  ]
+}

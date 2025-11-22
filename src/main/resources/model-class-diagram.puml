@@ -1,0 +1,101 @@
+@startuml
+skinparam monochrome true
+skinparam classAttributeIconSize 0
+hide empty methods
+hide empty attributes
+
+package "co.edu.umanizales.police_api.model" {
+  interface Identifiable {
+    +UUID getId()
+    +String toCsv()
+  }
+
+  enum CrimeType {
+    THEFT
+    ASSAULT
+    VANDALISM
+    TRAFFIC
+    OTHER
+  }
+
+  abstract class Employee {
+    UUID id
+    String firstName
+    String lastName
+    LocalDate hiredDate
+    UUID unitId
+    +String performTaskOnCase(Case)
+  }
+
+  class PoliceUnit {
+    UUID id
+    String name
+    List<UUID> memberEmployeeIds
+    boolean active
+  }
+
+  class PoliceVehicle {
+    UUID id
+    String plateNumber
+    String model
+    UUID assignedUnitId
+  }
+
+  class Case {
+    UUID id
+    String title
+    String description
+    CrimeType crimeType
+    UUID assignedUnitId
+    List<UUID> reportIds
+    List<UUID> evidenceIds
+  }
+
+  class Evidence {
+    UUID id
+    UUID caseId
+    String type
+    String description
+    LocalDateTime collectedAt
+  }
+
+  class IncidentReport {
+    UUID id
+    UUID caseId
+    String reporterName
+    String details
+    LocalDateTime reportedAt
+  }
+
+  class CaseReport {
+    UUID id
+    UUID caseId
+    String summary
+    LocalDate createdAt
+  }
+
+  class CaseCategory <<record>> {
+    String name
+    String description
+  }
+}
+
+Identifiable <|.. Case
+Identifiable <|.. Evidence
+Identifiable <|.. IncidentReport
+Identifiable <|.. CaseReport
+Identifiable <|.. Employee
+Identifiable <|.. PoliceUnit
+Identifiable <|.. PoliceVehicle
+
+Case --> "0..1" PoliceUnit : assignedUnitId
+PoliceUnit "1" --> "*" Employee : unitId
+PoliceUnit "1" --> "*" PoliceVehicle : assignedUnitId
+
+Case "1" --> "*" Evidence : caseId
+Case "1" --> "*" IncidentReport : caseId
+Case "1" --> "*" CaseReport : caseId
+
+Case --> CrimeType : crimeType
+
+@enduml

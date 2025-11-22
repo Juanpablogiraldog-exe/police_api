@@ -78,12 +78,13 @@
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
-                  "const category = String(d.get('category') || 'other').toUpperCase();",
-                  "pm.variables.set('crimeType', category);",
+                  "const rawCat = String(d.get('category') || 'other').trim().toUpperCase();",
+                  "const allowed = ['THEFT','ASSAULT','VANDALISM','TRAFFIC','OTHER'];",
+                  "const crimeType = allowed.includes(rawCat) ? rawCat : 'OTHER';",
                   "const title = `Caso ${d.get('case_id')} - ${d.get('category')}`;",
-                  "pm.variables.set('title', title);",
                   "const desc = `${d.get('notes')} en ${d.get('location')} el ${d.get('date')} (Oficial: ${d.get('assigned_officer')}, Estado: ${d.get('status')}, Prioridad: ${d.get('priority')})`;",
-                  "pm.variables.set('description', desc);"
+                  "const payload = { title: title || 'Caso sin título', description: desc || '', crimeType, assignedUnit: null, reports: [], evidences: [] };",
+                  "pm.request.body.update(JSON.stringify(payload));"
                 ]
               }
             }

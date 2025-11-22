@@ -65,4 +65,10 @@ public class CaseController {
         }
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/import")
+    public ResponseEntity<String> importFromDataset() {
+        int created = caseService.importFromDataset();
+        return ResponseEntity.ok("Imported " + created + " cases");
+    }
 }

@@ -4,10 +4,16 @@ import co.edu.umanizales.police_api.model.Case;
 import co.edu.umanizales.police_api.model.IncidentReport;
 import co.edu.umanizales.police_api.model.Evidence;
 import co.edu.umanizales.police_api.model.PoliceUnit;
+import co.edu.umanizales.police_api.model.CrimeType;
 import jakarta.annotation.PostConstruct;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -170,6 +176,63 @@ public class CaseService {
             Files.write(csvPath, csvContent.toString().getBytes());
         } catch (IOException e) {
             System.err.println("Error al actualizar CSV: " + e.getMessage());
+        }
+    }
+
+    // Importa casos desde resources/cases_dataset.json y retorna la cantidad creada
+    public int importFromDataset() {
+        int created = 0;
+        try {
+            ClassPathResource resource = new ClassPathResource("cases_dataset.json");
+            if (!resource.exists()) {
+                System.err.println("No se encontró cases_dataset.json en el classpath");
+                return 0;
+            }
+            try (InputStream is = resource.getInputStream()) {
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode root = mapper.readTree(is);
+                JsonNode rows = root.path("rows");
+                if (rows != null && rows.isArray()) {
+                    for (JsonNode row : rows) {
+                        String caseId = row.path("case_id").asText("");
+                        String category = row.path("category").asText("other");
+                        String notes = row.path("notes").asText("");
+                        String location = row.path("location").asText("");
+                        String date = row.path("date").asText("");
+                        String assignedOfficer = row.path("assigned_officer").asText("");
+                        String status = row.path("status").asText("");
+                        String priority = row.path("priority").asText("");
+
+                        String title = "Caso " + caseId + " - " + category;
+                        String description = notes + " en " + location + " el " + date
+                                + " (Oficial: " + assignedOfficer + ", Estado: " + status + ", Prioridad: " + priority + ")";
+
+                        Case c = new Case();
+                        c.setTitle(title);
+                        c.setDescription(description);
+                        c.setCrimeType(mapCrimeType(category));
+                        // assignedUnit, reports y evidences permanecen por defecto
+
+                        create(c);
+                        created++;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al importar casos desde JSON: " + e.getMessage());
+        }
+        return created;
+    }
+
+    private CrimeType mapCrimeType(String category) {
+        if (category == null) {
+            return CrimeType.OTHER;
+        }
+        String v = category.trim().toUpperCase();
+        try {
+            return CrimeType.valueOf(v);
+        } catch (IllegalArgumentException ex) {
+            return CrimeType.OTHER;
         }
     }
 }

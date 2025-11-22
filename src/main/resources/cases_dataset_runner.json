@@ -1,0 +1,11 @@
+[
+  { "case_id": "20251111-1", "date": "2025-11-11", "category": "theft",     "status": "abierto", "location": "Sector A",          "assigned_officer": "Of. Gómez",  "priority": "medium", "notes": "Reporte inicial" },
+  { "case_id": "20251111-2", "date": "2025-11-11", "category": "assault",   "status": "cerrado", "location": "Calle 12",          "assigned_officer": "Of. Pérez",  "priority": "high",   "notes": "Agresor detenido" },
+  { "case_id": "20251111-3", "date": "2025-11-11", "category": "vandalism", "status": "abierto", "location": "Parque Central",    "assigned_officer": "Of. Rivera", "priority": "low",    "notes": "Daños en mobiliario" },
+  { "case_id": "20251112-1", "date": "2025-11-12", "category": "traffic",   "status": "abierto", "location": "Av. 45",            "assigned_officer": "Of. Gómez",  "priority": "medium", "notes": "Choque sin heridos" },
+  { "case_id": "20251112-2", "date": "2025-11-12", "category": "theft",     "status": "cerrado", "location": "Centro Comercial",  "assigned_officer": "Of. López",  "priority": "medium", "notes": "Bolsillo detenido" },
+  { "case_id": "20251112-3", "date": "2025-11-12", "category": "other",     "status": "abierto", "location": "Estación Norte",    "assigned_officer": "Of. Rivera", "priority": "low",    "notes": "Asistencia social" },
+  { "case_id": "20251113-1", "date": "2025-11-13", "category": "theft",     "status": "abierto", "location": "Barrio Las Flores", "assigned_officer": "Of. Gómez",  "priority": "medium", "notes": "Robo de bicicleta" },
+  { "case_id": "20251113-2", "date": "2025-11-13", "category": "assault",   "status": "cerrado", "location": "Calle 7",           "assigned_officer": "Of. Pérez",  "priority": "high",   "notes": "Lesiones reportadas" },
+  { "case_id": "20251113-3", "date": "2025-11-13", "category": "traffic",   "status": "abierto", "location": "Autopista Sur",     "assigned_officer": "Of. López",  "priority": "medium", "notes": "Control de tránsito" }
+]

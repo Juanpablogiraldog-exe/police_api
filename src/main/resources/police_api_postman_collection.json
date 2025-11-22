@@ -70,6 +70,65 @@
           }
         },
         {
+          "name": "Create Case from Dataset (Runner)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData();",
+                  "const category = String(d.get('category') || 'other').toUpperCase();",
+                  "pm.variables.set('crimeType', category);",
+                  "const title = `Caso ${d.get('case_id')} - ${d.get('category')}`;",
+                  "pm.variables.set('title', title);",
+                  "const desc = `${d.get('notes')} en ${d.get('location')} el ${d.get('date')} (Oficial: ${d.get('assigned_officer')}, Estado: ${d.get('status')}, Prioridad: ${d.get('priority')})`;",
+                  "pm.variables.set('description', desc);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"{{title}}\",\n  \"description\": \"{{description}}\",\n  \"crimeType\": \"{{crimeType}}\",\n  \"assignedUnit\": null,\n  \"reports\": [],\n  \"evidences\": []\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/cases",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["cases"]
+            }
+          }
+        },
+        {
+          "name": "Import Cases Dataset",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/cases/import",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["cases", "import"]
+            }
+          }
+        },
+        {
           "name": "Update Case",
           "request": {
             "method": "PUT",

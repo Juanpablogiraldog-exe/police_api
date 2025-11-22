@@ -146,7 +146,7 @@
                   "  '@media (prefers-color-scheme: dark){thead th{background:#333;color:#fff}tbody td{background:#1e1e1e;color:#eaeaea}}',",
                   "  '</style>',",
                   "  '<table>',",
-                  "  '<thead><tr><th>case_id</th><th>date</th><th>category</th><th>status</th><th>location</th><th>assigned_officer</th><th>priority</th><th>notes</th></tr></thead>',",
+                  "  '<thead><tr><th>Case Id</th><th>Date</th><th>Category</th><th>Status</th><th>Location</th><th>Assigned Officer</th><th>Priority</th><th>Notes</th></tr></thead>',",
                   "  '<tbody>',",
                   "  '{{#each rows}}',",
                   "  '<tr>',",

@@ -2,3 +2,15 @@ id,title,description,crimeType,assignedUnit,reports,evidences
 550e8400-e29b-41d4-a716-446655440201,Robo en tienda,Robo de mercancía en tienda del centro,THEFT,550e8400-e29b-41d4-a716-446655440001,550e8400-e29b-41d4-a716-446655440301,550e8400-e29b-41d4-a716-446655440401
 550e8400-e29b-41d4-a716-446655440202,Asalto a mano armada,Asalto en la avenida principal,ASSAULT,550e8400-e29b-41d4-a716-446655440002,550e8400-e29b-41d4-a716-446655440302,550e8400-e29b-41d4-a716-446655440402;550e8400-e29b-41d4-a716-446655440403
 550e8400-e29b-41d4-a716-446655440203,Fraude electrónico,Fraude en transacciones bancarias,OTHER,,550e8400-e29b-41d4-a716-446655440303,
+8ee3a758-101a-4c29-8c13-37856a252bf5,Caso 20251111-1 - theft,Reporte inicial en Sector A el 2025-11-11 (Oficial: Of. Gómez Estado: abierto Prioridad: medium),THEFT,,,
+b9badc52-3960-41c4-9531-9b102d97e4ad,Caso 20251111-2 - assault,Agresor detenido en Calle 12 el 2025-11-11 (Oficial: Of. Pérez Estado: cerrado Prioridad: high),ASSAULT,,,
+903ba0d1-c36c-4169-acd5-181340fe740b,Caso 20251111-3 - vandalism,Daños en mobiliario en Parque Central el 2025-11-11 (Oficial: Of. Rivera Estado: abierto Prioridad: low),VANDALISM,,,
+588d3e54-c875-48d5-9e17-7621142e3b9e,Caso 20251112-1 - traffic,Choque sin heridos en Av. 45 el 2025-11-12 (Oficial: Of. Gómez Estado: abierto Prioridad: medium),TRAFFIC,,,
+2906c8e6-b6ff-426b-bcda-6b6d3f4dab3f,Caso 20251112-2 - theft,Bolsillo detenido en Centro Comercial el 2025-11-12 (Oficial: Of. López Estado: cerrado Prioridad: medium),THEFT,,,
+21e758cb-4756-4544-965f-3db0e2a3337c,Caso 20251112-3 - other,Asistencia social en Estación Norte el 2025-11-12 (Oficial: Of. Rivera Estado: abierto Prioridad: low),OTHER,,,
+a876f8da-d4f2-4d92-bf61-670051e4ecaa,Caso 20251113-1 - theft,Robo de bicicleta en Barrio Las Flores el 2025-11-13 (Oficial: Of. Gómez Estado: abierto Prioridad: medium),THEFT,,,
+4ae41df4-0132-4ea9-a4a7-8b4fa359b95b,Caso 20251113-2 - assault,Lesiones reportadas en Calle 7 el 2025-11-13 (Oficial: Of. Pérez Estado: cerrado Prioridad: high),ASSAULT,,,
+e5b2a092-1242-4913-9a85-b6ce5f83e507,Caso 20251113-3 - traffic,Control de tránsito en Autopista Sur el 2025-11-13 (Oficial: Of. López Estado: abierto Prioridad: medium),TRAFFIC,,,
+4b96e3e0-d628-43c6-b8bc-d090d362df29,Caso N/A - other,N/A en N/A el 2025-11-22 (Oficial: N/A Estado: N/A Prioridad: N/A),OTHER,,,
+bc3a1196-e884-4d16-92f0-b3d4e1d98204,Caso N/A - other,N/A en N/A el 2025-11-22 (Oficial: N/A Estado: N/A Prioridad: N/A),OTHER,,,
+875cfbcf-994d-4af9-ac4c-e67cf39fc5af,Caso N/A - other,N/A en N/A el 2025-11-22 (Oficial: N/A Estado: N/A Prioridad: N/A),OTHER,,,

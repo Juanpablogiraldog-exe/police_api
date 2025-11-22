@@ -77,7 +77,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const d = pm.iterationData();",
+                  "const d = pm.iterationData;",
                   "const category = String(d.get('category') || 'other').toUpperCase();",
                   "pm.variables.set('crimeType', category);",
                   "const title = `Caso ${d.get('case_id')} - ${d.get('category')}`;",

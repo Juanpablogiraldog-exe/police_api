@@ -37,6 +37,7 @@ public class PoliceVehicleService {
                 PoliceVehicle vehicle = PoliceVehicle.fromCsv(line);
                 vehicles.add(vehicle);
             }
+            updateCsv();
         } catch (IOException e) {
             System.err.println("Error al cargar vehículos desde CSV: " + e.getMessage());
         }

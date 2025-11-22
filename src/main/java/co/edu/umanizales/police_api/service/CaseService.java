@@ -4,8 +4,14 @@ import co.edu.umanizales.police_api.model.Case;
 import co.edu.umanizales.police_api.model.IncidentReport;
 import co.edu.umanizales.police_api.model.Evidence;
 import co.edu.umanizales.police_api.model.PoliceUnit;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +19,29 @@ import java.util.UUID;
 @Service
 public class CaseService {
     private final List<Case> cases = new ArrayList<>();
+
+    @PostConstruct
+    public void loadFromCsv() {
+        try {
+            Path csvPath = Paths.get("src/main/resources/data/cases.csv");
+            List<String> lines = Files.readAllLines(csvPath);
+            
+            boolean isHeader = true;
+            for (String line : lines) {
+                if (isHeader) {
+                    isHeader = false;
+                    continue;
+                }
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+                Case c = Case.fromCsv(line);
+                cases.add(c);
+            }
+        } catch (IOException e) {
+            System.err.println("Error al cargar casos desde CSV: " + e.getMessage());
+        }
+    }
 
     // Retorna todos los casos almacenados en memoria.
     public List<Case> getAll() {
@@ -41,6 +70,7 @@ public class CaseService {
             c.setId(UUID.randomUUID());
         }
         cases.add(c);
+        appendToCsv(c);
         return c;
     }
 
@@ -87,6 +117,7 @@ public class CaseService {
                         targetEvidence.addAll(c.getEvidences());
                     }
                 }
+                updateCsv();
                 return current;
             }
         }
@@ -109,8 +140,36 @@ public class CaseService {
         }
         if (index >= 0) {
             cases.remove(index);
+            updateCsv();
             return true;
         }
         return false;
+    }
+
+    // Agrega un caso al archivo CSV
+    private void appendToCsv(Case c) {
+        try {
+            Path csvPath = Paths.get("src/main/resources/data/cases.csv");
+            String csvLine = c.toCsv() + "\n";
+            Files.write(csvPath, csvLine.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.err.println("Error al escribir en CSV: " + e.getMessage());
+        }
+    }
+
+    // Actualiza el archivo CSV completo con todos los casos
+    private void updateCsv() {
+        try {
+            Path csvPath = Paths.get("src/main/resources/data/cases.csv");
+            StringBuilder csvContent = new StringBuilder("id,title,description,crimeType,assignedUnit,reports,evidences\n");
+            
+            for (Case c : cases) {
+                csvContent.append(c.toCsv()).append("\n");
+            }
+            
+            Files.write(csvPath, csvContent.toString().getBytes());
+        } catch (IOException e) {
+            System.err.println("Error al actualizar CSV: " + e.getMessage());
+        }
     }
 }

@@ -1,8 +1,14 @@
 package co.edu.umanizales.police_api.service;
 
 import co.edu.umanizales.police_api.model.IncidentReport;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -10,6 +16,29 @@ import java.util.UUID;
 @Service
 public class IncidentReportService {
     private final List<IncidentReport> reports = new ArrayList<>();
+
+    @PostConstruct
+    public void loadFromCsv() {
+        try {
+            Path csvPath = Paths.get("src/main/resources/data/incident_reports.csv");
+            List<String> lines = Files.readAllLines(csvPath);
+            
+            boolean isHeader = true;
+            for (String line : lines) {
+                if (isHeader) {
+                    isHeader = false;
+                    continue;
+                }
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+                IncidentReport r = IncidentReport.fromCsv(line);
+                reports.add(r);
+            }
+        } catch (IOException e) {
+            System.err.println("Error al cargar reportes de incidente desde CSV: " + e.getMessage());
+        }
+    }
 
     // Retorna todos los reportes de incidente almacenados.
     public List<IncidentReport> getAll() {
@@ -38,6 +67,7 @@ public class IncidentReportService {
             r.setId(UUID.randomUUID());
         }
         reports.add(r);
+        appendToCsv(r);
         return r;
     }
 
@@ -52,6 +82,7 @@ public class IncidentReportService {
                 current.setReporterName(r.getReporterName());
                 current.setDetails(r.getDetails());
                 current.setReportedAt(r.getReportedAt());
+                updateCsv();
                 return current;
             }
         }
@@ -74,8 +105,36 @@ public class IncidentReportService {
         }
         if (index >= 0) {
             reports.remove(index);
+            updateCsv();
             return true;
         }
         return false;
+    }
+
+    // Agrega un reporte al archivo CSV
+    private void appendToCsv(IncidentReport r) {
+        try {
+            Path csvPath = Paths.get("src/main/resources/data/incident_reports.csv");
+            String csvLine = r.toCsv() + "\n";
+            Files.write(csvPath, csvLine.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.err.println("Error al escribir en CSV: " + e.getMessage());
+        }
+    }
+
+    // Actualiza el archivo CSV completo con todos los reportes
+    private void updateCsv() {
+        try {
+            Path csvPath = Paths.get("src/main/resources/data/incident_reports.csv");
+            StringBuilder csvContent = new StringBuilder("id,case_,reporterName,details,reportedAt\n");
+            
+            for (IncidentReport r : reports) {
+                csvContent.append(r.toCsv()).append("\n");
+            }
+            
+            Files.write(csvPath, csvContent.toString().getBytes());
+        } catch (IOException e) {
+            System.err.println("Error al actualizar CSV: " + e.getMessage());
+        }
     }
 }

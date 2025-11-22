@@ -2,8 +2,14 @@ package co.edu.umanizales.police_api.service;
 
 import co.edu.umanizales.police_api.model.PoliceUnit;
 import co.edu.umanizales.police_api.model.Employee;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -11,6 +17,29 @@ import java.util.UUID;
 @Service
 public class PoliceUnitService {
     private final List<PoliceUnit> units = new ArrayList<>();
+
+    @PostConstruct
+    public void loadFromCsv() {
+        try {
+            Path csvPath = Paths.get("src/main/resources/data/police_units.csv");
+            List<String> lines = Files.readAllLines(csvPath);
+            
+            boolean isHeader = true;
+            for (String line : lines) {
+                if (isHeader) {
+                    isHeader = false;
+                    continue;
+                }
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+                PoliceUnit u = PoliceUnit.fromCsv(line);
+                units.add(u);
+            }
+        } catch (IOException e) {
+            System.err.println("Error al cargar unidades policiales desde CSV: " + e.getMessage());
+        }
+    }
 
     // Retorna todas las unidades policiales en memoria.
     public List<PoliceUnit> getAll() {
@@ -39,6 +68,7 @@ public class PoliceUnitService {
             u.setId(UUID.randomUUID());
         }
         units.add(u);
+        appendToCsv(u);
         return u;
     }
 
@@ -67,6 +97,7 @@ public class PoliceUnitService {
                         targetMembers.addAll(u.getMembers());
                     }
                 }
+                updateCsv();
                 return current;
             }
         }
@@ -89,8 +120,36 @@ public class PoliceUnitService {
         }
         if (index >= 0) {
             units.remove(index);
+            updateCsv();
             return true;
         }
         return false;
+    }
+
+    // Agrega una unidad al archivo CSV
+    private void appendToCsv(PoliceUnit u) {
+        try {
+            Path csvPath = Paths.get("src/main/resources/data/police_units.csv");
+            String csvLine = u.toCsv() + "\n";
+            Files.write(csvPath, csvLine.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.err.println("Error al escribir en CSV: " + e.getMessage());
+        }
+    }
+
+    // Actualiza el archivo CSV completo con todas las unidades
+    private void updateCsv() {
+        try {
+            Path csvPath = Paths.get("src/main/resources/data/police_units.csv");
+            StringBuilder csvContent = new StringBuilder("id,name,members,active\n");
+            
+            for (PoliceUnit u : units) {
+                csvContent.append(u.toCsv()).append("\n");
+            }
+            
+            Files.write(csvPath, csvContent.toString().getBytes());
+        } catch (IOException e) {
+            System.err.println("Error al actualizar CSV: " + e.getMessage());
+        }
     }
 }
